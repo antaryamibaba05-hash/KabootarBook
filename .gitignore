@@ -1,0 +1,9 @@
+node_modules/
+dist/
+src-tauri/target/
+src-tauri/gen/android/local.properties
+src-tauri/gen/android/.gradle/
+*.keystore
+*.jks
+.env
+.env.*
