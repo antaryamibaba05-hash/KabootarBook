@@ -8,7 +8,10 @@ pub fn run() {
         sql: include_str!("../migrations/001_init.sql"),
         kind: MigrationKind::Up,
     }];
-    tauri::Builder::default()
+    let builder = tauri::Builder::default();
+    #[cfg(mobile)]
+    let builder = builder.plugin(tauri_plugin_safe_area_insets::init());
+    builder
         .plugin(
             tauri_plugin_sql::Builder::default()
                 .add_migrations("sqlite:kabootarbook.db", migrations)
