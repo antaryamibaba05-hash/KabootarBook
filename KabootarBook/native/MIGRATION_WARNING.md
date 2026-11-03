@@ -1,0 +1,5 @@
+# Important: current Tauri APK versus native Compose APK
+
+The previously installed Tauri APK stores its web UI state in a WebView. Android application databases and WebView localStorage are app-private. Installing a Compose APK with the same application ID is **not a validated migration** merely because the Rust importer accepts a JSON string: the new native activity cannot automatically read the old WebView localStorage. The native app's JSON import can restore a full-state JSON backup. The older Tauri UI CSV export does not preserve active flight state, settings, or custom field definitions.
+
+Do not uninstall the Tauri APK or clear its data until the source data has been exported and independently verified. In particular, check pigeon counts, all completed shared flights, active flights, archive status, custom fields, and settings after import. The debug signing key used by CI can also change between runs, preventing updates over an earlier APK; back up before uninstalling or accepting any replacement.

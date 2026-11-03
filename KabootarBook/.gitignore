@@ -1,0 +1,15 @@
+node_modules/
+dist/
+src-tauri/target/
+src-tauri/gen/android/local.properties
+src-tauri/gen/android/.gradle/
+*.keystore
+*.jks
+native/.gradle/
+native/local.properties
+native/app/build/
+native/app/src/main/jniLibs/
+rust/target/
+native/gradle/wrapper/gradle-wrapper.jar
+.env
+.env.*

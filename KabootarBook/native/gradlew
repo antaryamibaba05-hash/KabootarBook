@@ -1,0 +1,16 @@
+#!/bin/sh
+set -eu
+BASE_DIR=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)
+PROP="$BASE_DIR/gradle-wrapper.properties"
+URL=$(awk -F= '$1=="distributionUrl" {print $2}' "$PROP" | sed 's/\\:/\:/g')
+DIST=$(basename "$URL" .zip)
+CACHE="${GRADLE_USER_HOME:-$HOME/.gradle}/wrapper/dists/$DIST"
+GRADLE="$CACHE/gradle-8.9/bin/gradle"
+if [ ! -x "$GRADLE" ]; then
+  mkdir -p "$CACHE"
+  TMP="$CACHE/gradle.zip"
+  if command -v curl >/dev/null 2>&1; then curl -fL "$URL" -o "$TMP"; else wget -O "$TMP" "$URL"; fi
+  unzip -q -o "$TMP" -d "$CACHE"
+  rm -f "$TMP"
+fi
+exec "$GRADLE" "$@"
